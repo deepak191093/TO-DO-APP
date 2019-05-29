@@ -1,0 +1,90 @@
+*{
+    box-sizing: border-box;
+}
+body{
+    background-color: #800080;
+    transition: all 2s;
+}
+.main-container
+{
+    text-align: center;    
+}
+.header{
+  color: white;
+}
+.btn
+{
+    background-color: #008CBA;
+    border: none;
+    color: white;
+    padding: 8px 16px;
+    text-align: center;
+    font-size: 16px;
+    margin: 4px 4px;
+    display: inline-block;
+    border-radius: 8px; 
+    
+}
+.btn:hover{
+    background-color: white;
+    border: 2px solid #008CBA;
+    color : #008CBA;
+    transition: all 0.8s;
+    padding: 6px 14px;
+    cursor: pointer;
+    
+}
+.options
+{
+    border: 2px solid #008CBA;
+    width: 30%;
+    margin: 4px auto;
+    border-radius: 8px;
+    color : white;
+    text-align: center;
+    
+    
+}
+.options h2{    
+    margin: auto;
+    text-align: center;
+    max-width:100px;
+    word-wrap:break-word;
+    cursor: pointer;
+}
+.form
+{
+    font-size: 16px;
+    height: 32px;
+    border-radius: 8px;
+    border: 1px solid #008CBA;  
+    color : #008CBA;
+    
+}
+.Login-Form h2{
+    color: white;
+}
+.Login-Form{
+    border: 3px solid #f1f1f149;
+    text-align: center;
+    width: 50%;        
+    margin: auto auto;
+    color: black;   
+}
+.form-group label{
+    font-size: 18px;
+    font-weight: bolder;
+    display: block;
+}
+.form-group input[type=text], input[type=password] {
+    width: 90%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    color: #800080;
+  }
+  .form-group1
+  {
+      color: pink;
+  }
