@@ -66,9 +66,11 @@ class Option extends React.Component {
               Done
             </button>
           )}
-          <button className="btn" onClick={this.showEdit}>
-            Edit
-          </button>
+          {!this.props.status && (
+            <button className="btn" onClick={this.showEdit}>
+              Edit
+            </button>
+          )}
         </div>
       );
     } else if (this.state.edit) {

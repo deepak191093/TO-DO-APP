@@ -69,6 +69,10 @@ export default class ToDoApp extends React.Component {
     }
   };
   //---------------------------------------------------------
+  handleLogout = () => {
+    this.setState({ user: null });
+  };
+  //---------------------------------------------------------
   componentDidMount() {
     try {
       let data = JSON.parse(localStorage.getItem("UserData"));
@@ -103,6 +107,9 @@ export default class ToDoApp extends React.Component {
 
     return (
       <div className="main-container">
+        <button className="btn logout" onClick={this.handleLogout}>
+          Logout
+        </button>
         <Header subtitle={subtitle} />
         <Options
           options={this.state.options}

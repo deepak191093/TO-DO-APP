@@ -61,6 +61,7 @@ class LoginPage extends React.Component {
     return (
       <div className="Login-Form">
         <h2>Login</h2>
+
         <form name="form" onSubmit={this.handleSubmit} autoComplete="off">
           <div className="form-group">
             <label>Username</label>
