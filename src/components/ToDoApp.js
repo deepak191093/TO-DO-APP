@@ -1,69 +1,88 @@
-import React from 'react';
-import AddOption from './AddOption';
-import Header from './Header';
-import Options from './Options';
-import {Redirect} from 'react-router-dom';
+import React from "react";
+import AddOption from "./AddOption";
+import Header from "./Header";
+import Options from "./Options";
+import { Redirect } from "react-router-dom";
 
 export default class ToDoApp extends React.Component {
-  constructor(props){
-  super(props);
-  
-  this.state = {
-    user: this.props.location.uName,
-    index : null,
-    options: []
-  };
+  constructor(props) {
+    super(props);
 
-}
+    this.state = {
+      user: this.props.location.uName,
+      index: null,
+      options: []
+    };
+  }
   //-------------------------------------------------
-  handleDeleteOptions = ()=> {
+  handleDeleteOptions = () => {
     this.setState(() => ({ options: [] }));
   };
   //----------------------------------------------------
-  handleDeleteOption = (optionToRemove) => {
-    this.setState((prevState) => ({
-      options: prevState.options.filter((option) => optionToRemove !== option.todoTask)
+  handleDeleteOption = optionToRemove => {
+    this.setState(prevState => ({
+      options: prevState.options.filter(
+        option => optionToRemove !== option.todoTask
+      )
     }));
   };
-//-------------------------------------------
-  handleAddOption = (option) => {
+  //-------------------------------------------
+  handleAddOption = option => {
     if (!option.todoTask || !option.description) {
-      return 'Enter valid value to add item';
-    } 
-    for(var i = 0; i<this.state.options.length ; i++)
-    {
-      if(option.todoTask === this.state.options[i].todoTask)
-      {
-        return 'Same Task Already exits Enter Different Task';
+      return "Enter valid value to add item";
+    }
+    for (var i = 0; i < this.state.options.length; i++) {
+      if (option.todoTask === this.state.options[i].todoTask) {
+        return "Same Task Already exits Enter Different Task";
       }
     }
-     this.setState((prevState) => ({
+    this.setState(prevState => ({
       options: prevState.options.concat(option)
     }));
   };
 
+  //-------------------------------------------------------
+
+  handleEditOption = (option, description) => {
+    for (var i = 0; i < this.state.options.length; i++) {
+      if (option === this.state.options[i].todoTask) {
+        let opt = this.state.options;
+        opt[i].description = description;
+        this.setState({
+          options: opt
+        });
+      }
+    }
+  };
+
   //--------------------------------------------------------
-  handleDoneOption = (optionToDone) =>{
+  handleDoneOption = option => {
+    for (var i = 0; i < this.state.options.length; i++) {
+      if (option === this.state.options[i].todoTask) {
+        let opt = this.state.options;
+        opt[i].doneStatus = true;
 
-
-  }
+        this.setState({
+          options: opt
+        });
+      }
+    }
+  };
   //---------------------------------------------------------
   componentDidMount() {
-    console.log("enetred");
     try {
-      let data = JSON.parse(localStorage.getItem('UserData')); 
+      let data = JSON.parse(localStorage.getItem("UserData"));
       let index = 0;
-      for(var i=0; i < data.length ; i++){
-        if(data[i].uName == this.state.user)
-        {
-            this.setState({index:i});
-            index = i;
-            break;
+      for (var i = 0; i < data.length; i++) {
+        if (data[i].uName == this.state.user) {
+          this.setState({ index: i });
+          index = i;
+          break;
         }
-       }
-      
+      }
+
       let options = data[index].options;
-           
+
       if (options) {
         this.setState(() => ({ options }));
       }
@@ -73,35 +92,28 @@ export default class ToDoApp extends React.Component {
   }
   //=================================
   componentDidUpdate(prevProps, prevState) {
-    if (prevState.options.length !== this.state.options.length) {
-      
-      let data = JSON.parse(localStorage.getItem('UserData')); 
-      data[this.state.index].options = this.state.options;
-      let finalData = JSON.stringify(data);
-      localStorage.setItem('UserData', finalData);
-    }
+    let data = JSON.parse(localStorage.getItem("UserData"));
+    data[this.state.index].options = this.state.options;
+    let finalData = JSON.stringify(data);
+    localStorage.setItem("UserData", finalData);
   }
 
-  
   render() {
-    const subtitle = 'Enter The Tasks To Be Done';
+    const subtitle = "Enter The Tasks To Be Done";
 
     return (
       <div className="main-container">
-        <Header subtitle={subtitle}/>
+        <Header subtitle={subtitle} />
         <Options
           options={this.state.options}
           handleDeleteOptions={this.handleDeleteOptions}
           handleDeleteOption={this.handleDeleteOption}
+          handleEditOption={this.handleEditOption}
           handleDoneOption={this.handleDoneOption}
         />
-        <AddOption
-          handleAddOption={this.handleAddOption}
-        />
-        {!this.state.user && <Redirect to='/'/>
-    }
+        <AddOption handleAddOption={this.handleAddOption} />
+        {!this.state.user && <Redirect to="/" />}
       </div>
     );
   }
 }
-
